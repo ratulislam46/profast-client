@@ -2,8 +2,13 @@ import React from 'react';
 import { Link, Outlet } from 'react-router';
 import { MdDashboard, MdPerson, MdLocalShipping, MdPayment, MdGroups, MdPending, MdAdminPanelSettings } from 'react-icons/md';
 import ProfastIcon from '../../Page/Home/Navbar/ProfastIcon'
+import UseUserRole from '../../hook/UseUserRole';
 
 const Dashboard = () => {
+
+    const { role, loading } = UseUserRole();
+    console.log(role);
+
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -67,28 +72,33 @@ const Dashboard = () => {
                         </Link>
                     </li>
 
-                    {/* riders link  */}
-                    <li>
-                        <Link to="/dashboard/activeRiders" className="flex items-center gap-3 text-blue-600 hover:bg-blue-100 px-3 py-2 rounded-lg transition-colors duration-200">
-                            <MdGroups className="text-xl text-blue-500" />
-                            <span className="font-semibold">Active Riders</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/dashboard/pendingRiders" className="flex items-center gap-3 text-yellow-600 hover:bg-yellow-100 px-3 py-2 rounded-lg transition-colors duration-200">
-                            <MdPending className="text-xl text-yellow-500" />
-                            <span className="font-semibold">Pending Riders</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            to="/dashboard/makeAdmin"
-                            className="flex items-center gap-3 text-blue-600 hover:bg-blue-100 px-3 py-2 rounded-lg transition-colors duration-200"
-                        >
-                            <MdAdminPanelSettings className="text-xl text-blue-500" />
-                            <span className="font-semibold">Make Admin</span>
-                        </Link>
-                    </li>
+                    {/* show link with condition  */}
+                    {!loading && role === 'admin' &&
+                        <>
+                            {/* riders link  */}
+                            <li>
+                                <Link to="/dashboard/activeRiders" className="flex items-center gap-3 text-blue-600 hover:bg-blue-100 px-3 py-2 rounded-lg transition-colors duration-200">
+                                    <MdGroups className="text-xl text-blue-500" />
+                                    <span className="font-semibold">Active Riders</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/dashboard/pendingRiders" className="flex items-center gap-3 text-yellow-600 hover:bg-yellow-100 px-3 py-2 rounded-lg transition-colors duration-200">
+                                    <MdPending className="text-xl text-yellow-500" />
+                                    <span className="font-semibold">Pending Riders</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    to="/dashboard/makeAdmin"
+                                    className="flex items-center gap-3 text-blue-600 hover:bg-blue-100 px-3 py-2 rounded-lg transition-colors duration-200"
+                                >
+                                    <MdAdminPanelSettings className="text-xl text-blue-500" />
+                                    <span className="font-semibold">Make Admin</span>
+                                </Link>
+                            </li>
+                        </>
+                    }
                 </ul>
             </div>
         </div>
