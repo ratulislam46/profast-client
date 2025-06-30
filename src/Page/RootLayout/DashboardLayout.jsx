@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router';
-import { MdDashboard, MdPerson, MdLocalShipping, MdPayment, MdGroups, MdPending, MdAdminPanelSettings } from 'react-icons/md';
+import { MdDashboard, MdPerson, MdLocalShipping, MdPayment, MdGroups, MdPending, MdAdminPanelSettings, MdDeliveryDining } from 'react-icons/md';
 import ProfastIcon from '../../Page/Home/Navbar/ProfastIcon'
 import UseUserRole from '../../hook/UseUserRole';
 
 const Dashboard = () => {
 
     const { role, loading } = UseUserRole();
-    console.log(role);
+    // console.log(role);
 
     return (
         <div className="drawer lg:drawer-open">
@@ -95,6 +95,15 @@ const Dashboard = () => {
                                 >
                                     <MdAdminPanelSettings className="text-xl text-blue-500" />
                                     <span className="font-semibold">Make Admin</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    to="/dashboard/asignRider"
+                                    className="flex items-center gap-3 text-purple-600 hover:bg-purple-100 px-3 py-2 rounded-lg transition-colors duration-200"
+                                >
+                                    <MdDeliveryDining className="text-xl text-purple-500" />
+                                    <span className="font-semibold">Asign Rider</span>
                                 </Link>
                             </li>
                         </>

@@ -20,7 +20,7 @@ const PaymentHistory = () => {
     if (isLoading) {
         return <span>loading ....</span>
     }
-    console.log(payments);
+    // console.log(payments);
 
     const handleDelete = (_id) => {
         axios.delete(`http://localhost:5000/payments/${_id}`)

@@ -21,8 +21,8 @@ const PendingRiders = () => {
     const updateStatus = async (id, action, email) => {
 
         const confirm = await Swal.fire({
-            title: `${action === "active" ? "active" : "Rejected"} Application`,
-            icon: 'warning',
+            title: `${action === "active" ? "Active" : "Rejected"} Application?`,
+            icon: 'question',
             showCancelButton: true,
             cancelButtonText: "Cancel",
             confirmButtonText: "Yes"
@@ -40,7 +40,7 @@ const PendingRiders = () => {
             refetch()
             Swal.fire({
                 title: `Rider ${action}`,
-                icon: 'info'
+                icon: 'success'
             })
         }
         catch (error) {

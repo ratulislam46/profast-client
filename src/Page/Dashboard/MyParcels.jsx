@@ -17,7 +17,7 @@ const MyParcels = () => {
             return res.data;
         }
     })
-    console.log(parcels);
+    // console.log(parcels);
 
     const handlePay = (id) => {
         console.log('proceed to payment', id);

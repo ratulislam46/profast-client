@@ -1,5 +1,5 @@
 // src/pages/BeARider.jsx
-import React, { use } from 'react';
+import React, { use, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import riderImage from '../../../../public/images/rider.png';
 import { AuthContext } from '../../../Context/AuthContex/AuthContext';
@@ -8,13 +8,33 @@ import Swal from 'sweetalert2';
 
 const BeARider = () => {
     const { user } = use(AuthContext);
-    const { register, handleSubmit, reset, formState: { errors } } = useForm({
+    const { register, handleSubmit, reset, watch, formState: { errors } } = useForm({
         defaultValues: {
             name: user?.displayName || '',
             email: user?.email || ''
         }
     });
     const axiosSecure = UseAxiosSecure();
+    const [serviceCenters, setServiceCenters] = useState([]);
+
+    const riderRegion = watch("region");
+
+    useEffect(() => {
+        fetch('/serviceCenter.json')
+            .then(res => res.json())
+            .then(data => {
+                // console.log(data);
+                setServiceCenters(data)
+            })
+    }, []);
+
+    const uniqueRegions = useMemo(() => {
+        const regions = serviceCenters.map(center => center.region);
+        return [...new Set(regions)];
+    }, [serviceCenters]);
+
+    const filteredSenderCenters = serviceCenters.filter(c => c.region === riderRegion);
+
 
     const onSubmit = async (data) => {
 
@@ -81,21 +101,27 @@ const BeARider = () => {
                         {errors.email && <p className="text-red-500 text-sm">Email is required</p>}
 
                         {/* Region */}
-                        <input
-                            {...register('region', { required: true })}
-                            type="text"
-                            placeholder="Your Region"
-                            className="input input-bordered w-full"
-                        />
+                        <fieldset>
+                            <select {...register("region", { required: true })} className="select select-bordered w-full">
+                                <option value="">Select Region</option>
+                                {uniqueRegions.map((region) => (
+                                    <option key={region} value={region}>{region}</option>
+                                ))}
+                            </select>
+                        </fieldset>
                         {errors.region && <p className="text-red-500 text-sm">Region is required</p>}
 
                         {/* District */}
-                        <input
-                            {...register('district', { required: true })}
-                            type="text"
-                            placeholder="Your District"
-                            className="input input-bordered w-full"
-                        />
+                        <fieldset>
+                            <select {...register("district", { required: true })} className="select select-bordered w-full">
+                                <option value="">Select Service Center</option>
+                                {filteredSenderCenters.map(center => (
+                                    <option key={center.id} value={center.district}>
+                                        {center.name} ({center.district})
+                                    </option>
+                                ))}
+                            </select>
+                        </fieldset>
                         {errors.district && <p className="text-red-500 text-sm">District is required</p>}
 
                         {/* NID Number */}

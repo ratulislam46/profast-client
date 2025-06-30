@@ -21,6 +21,7 @@ import ActiveRiders from "../Page/Dashboard/ActiveRiders/ActiveRiders";
 import MakeAdmin from "../Page/Dashboard/MakeAdmin/MakeAdmin";
 import Forbidden from "../Page/Forbidden/Forbidden";
 import AdminRoute from "../PrivateRoute/AdminRoute";
+import AsignRider from "../Page/Dashboard/AsignRider/AsignRider";
 
 export const router = createBrowserRouter([
     {
@@ -94,6 +95,10 @@ export const router = createBrowserRouter([
             {
                 path: 'myProfile',
                 Component: MyProfile
+            },
+            {
+                path: 'asignRider',
+                element: <AdminRoute><AsignRider></AsignRider></AdminRoute>
             },
             {
                 path: 'pendingRiders',
