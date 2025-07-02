@@ -3,7 +3,6 @@ import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import UseAxiosSecure from '../../../hook/UseAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
-import { warning } from 'motion';
 
 const PendingRiders = () => {
     const [selectedRider, setSelectedRider] = useState(null);

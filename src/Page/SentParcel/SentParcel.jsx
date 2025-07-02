@@ -5,6 +5,7 @@ import { useState, useMemo, useEffect, use } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from '../../Context/AuthContex/AuthContext'
 import UseAxiosSecure from '../../hook/UseAxiosSecure'
+import { useNavigate } from "react-router";
 
 
 const generateTrackingID = () => {
@@ -21,6 +22,7 @@ const SentParcel = () => {
     const { register, handleSubmit, watch, reset } = useForm();
     const [cost, setCost] = useState(null);
     const [serviceCenters, setServiceCenters] = useState([]);
+    const navigate = useNavigate();
 
     const senderRegion = watch("senderRegion");
     const receiverRegion = watch("receiverRegion");
@@ -123,6 +125,7 @@ const SentParcel = () => {
                                 showConfirmButton: false
                             });
                         }
+                        navigate('/dashboard/myParcels')
                     })
 
                 reset();

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router';
-import { MdDashboard, MdPerson, MdLocalShipping, MdPayment, MdGroups, MdPending, MdAdminPanelSettings, MdDeliveryDining } from 'react-icons/md';
-import ProfastIcon from '../../Page/Home/Navbar/ProfastIcon'
+import { MdDashboard, MdPerson, MdLocalShipping, MdPayment, MdGroups, MdPending, MdAdminPanelSettings, MdDeliveryDining, MdPendingActions } from 'react-icons/md';
 import UseUserRole from '../../hook/UseUserRole';
+import ProfastIcon from '../Home/Navbar/profastIcon';
+import { FaCheckCircle, FaTasks } from 'react-icons/fa';
 
 const Dashboard = () => {
 
@@ -71,6 +72,31 @@ const Dashboard = () => {
                             <span className="font-semibold">Payment History</span>
                         </Link>
                     </li>
+
+                    {/* rider links  */}
+                    {!loading && role === 'rider' &&
+                        <>
+                            <li>
+                                <Link
+                                    to="/dashboard/pendingDeliveries"
+                                    className="flex items-center gap-3 text-orange-600 hover:bg-orange-100 px-3 py-2 rounded-lg transition-colors duration-200"
+                                >
+                                    <FaTasks className="text-xl text-orange-500" />
+                                    <span className="font-semibold">Pending Delivery</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    to="/dashboard/completedDeliveries"
+                                    className="flex items-center gap-3 text-green-600 hover:bg-green-100 px-3 py-2 rounded-lg transition-colors duration-200"
+                                >
+                                    <FaCheckCircle className="text-xl text-green-500" />
+                                    <span className="font-semibold">Completed Delivery</span>
+                                </Link>
+                            </li>
+                        </>
+                    }
+
 
                     {/* show link with condition  */}
                     {!loading && role === 'admin' &&

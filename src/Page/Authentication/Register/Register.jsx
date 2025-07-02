@@ -1,6 +1,6 @@
 import React, { use, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../../Context/AuthContex/AuthContext';
 import GoogleLogin from '../GoogleLogin/GoogleLogin';
 import axios from 'axios';
@@ -13,11 +13,13 @@ const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [imageURL, setImageURL] = useState('');
     const axiosInstance = UseAxios();
+    const navigate = useNavigate();
 
     const handleRegister = data => {
         console.log(data);
         createUser(data.email, data.password)
             .then(async (result) => {
+                navigate('/login')
                 console.log(result.user);
 
                 // update userinfo  in the database 

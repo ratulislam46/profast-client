@@ -22,6 +22,9 @@ import MakeAdmin from "../Page/Dashboard/MakeAdmin/MakeAdmin";
 import Forbidden from "../Page/Forbidden/Forbidden";
 import AdminRoute from "../PrivateRoute/AdminRoute";
 import AsignRider from "../Page/Dashboard/AsignRider/AsignRider";
+import RiderRoute from "../PrivateRoute/RiderRoute";
+import PendingDeliveries from "../Page/Dashboard/PendingDeliveries/PendingDeliveries";
+import CompletedDeliveries from "../Page/Dashboard/CompletedDeliveries/CompletedDeliveries";
 
 export const router = createBrowserRouter([
     {
@@ -96,6 +99,17 @@ export const router = createBrowserRouter([
                 path: 'myProfile',
                 Component: MyProfile
             },
+            //rider routes
+            {
+                path: 'pendingDeliveries',
+                element: <RiderRoute><PendingDeliveries></PendingDeliveries></RiderRoute>
+            },
+            {
+                path: 'completedDeliveries',
+                element: <RiderRoute><CompletedDeliveries></CompletedDeliveries></RiderRoute>
+            },
+
+            // admin routes 
             {
                 path: 'asignRider',
                 element: <AdminRoute><AsignRider></AsignRider></AdminRoute>
