@@ -25,6 +25,9 @@ import AsignRider from "../Page/Dashboard/AsignRider/AsignRider";
 import RiderRoute from "../PrivateRoute/RiderRoute";
 import PendingDeliveries from "../Page/Dashboard/PendingDeliveries/PendingDeliveries";
 import CompletedDeliveries from "../Page/Dashboard/CompletedDeliveries/CompletedDeliveries";
+import EarningHistory from "../Page/Dashboard/MyEarn/EarningHistory";
+import TrackParcel from "../Page/Dashboard/TrackParcel/TrackParcel";
+import DashboardHome from "../Page/Dashboard/DashboardHome/DashboardHome";
 
 export const router = createBrowserRouter([
     {
@@ -84,6 +87,10 @@ export const router = createBrowserRouter([
         </PrivateRoute>,
         children: [
             {
+                index: true,
+                Component: DashboardHome
+            },
+            {
                 path: 'myParcels',
                 Component: MyParcels
             },
@@ -99,6 +106,10 @@ export const router = createBrowserRouter([
                 path: 'myProfile',
                 Component: MyProfile
             },
+            // {
+            //     path:"trackParcel",
+            //     Component:TrackParcel
+            // },
             //rider routes
             {
                 path: 'pendingDeliveries',
@@ -107,6 +118,10 @@ export const router = createBrowserRouter([
             {
                 path: 'completedDeliveries',
                 element: <RiderRoute><CompletedDeliveries></CompletedDeliveries></RiderRoute>
+            },
+            {
+                path: 'myEarningHistory',
+                element: <RiderRoute><EarningHistory></EarningHistory></RiderRoute>
             },
 
             // admin routes 

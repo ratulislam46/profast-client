@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router';
-import { MdDashboard, MdPerson, MdLocalShipping, MdPayment, MdGroups, MdPending, MdAdminPanelSettings, MdDeliveryDining, MdPendingActions } from 'react-icons/md';
+import { MdDashboard, MdPerson, MdLocalShipping, MdPayment, MdGroups, MdPending, MdAdminPanelSettings, MdDeliveryDining, MdPendingActions, MdLocationSearching } from 'react-icons/md';
 import UseUserRole from '../../hook/UseUserRole';
 import ProfastIcon from '../Home/Navbar/profastIcon';
-import { FaCheckCircle, FaTasks } from 'react-icons/fa';
+import { FaCheckCircle, FaMoneyBillWave, FaTasks } from 'react-icons/fa';
 
 const Dashboard = () => {
 
@@ -72,6 +72,15 @@ const Dashboard = () => {
                             <span className="font-semibold">Payment History</span>
                         </Link>
                     </li>
+                    {/* <li>
+                        <Link
+                            to="/dashboard/trackParcel"
+                            className="flex items-center gap-3 text-indigo-600 hover:bg-indigo-100 px-3 py-2 rounded-lg transition-colors duration-200"
+                        >
+                            <MdLocationSearching className="text-xl text-indigo-500" />
+                            <span className="font-semibold">Track Parcel</span>
+                        </Link>
+                    </li> */}
 
                     {/* rider links  */}
                     {!loading && role === 'rider' &&
@@ -94,6 +103,16 @@ const Dashboard = () => {
                                     <span className="font-semibold">Completed Delivery</span>
                                 </Link>
                             </li>
+                            <li>
+                                <Link
+                                    to="/dashboard/myEarningHistory"
+                                    className="flex items-center gap-3 text-amber-600 hover:bg-amber-100 px-3 py-2 rounded-lg transition-colors duration-200"
+                                >
+                                    <FaMoneyBillWave className="text-xl text-amber-500" />
+                                    <span className="font-semibold">My Earning</span>
+                                </Link>
+                            </li>
+
                         </>
                     }
 

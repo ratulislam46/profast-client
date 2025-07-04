@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { AuthContext } from '../../Context/AuthContex/AuthContext'
 import UseAxiosSecure from '../../hook/UseAxiosSecure'
 import { useNavigate } from "react-router";
+import UseTrackingLogger from "../../hook/UseTrackingLogger";
 
 
 const generateTrackingID = () => {
@@ -23,6 +24,7 @@ const SentParcel = () => {
     const [cost, setCost] = useState(null);
     const [serviceCenters, setServiceCenters] = useState([]);
     const navigate = useNavigate();
+    const { logTracking } = UseTrackingLogger();
 
     const senderRegion = watch("senderRegion");
     const receiverRegion = watch("receiverRegion");
@@ -100,6 +102,7 @@ const SentParcel = () => {
             cancelButtonColor: '#ef4444'
         }).then((result) => {
             if (result.isConfirmed) {
+                const tracking_id = generateTrackingID()
                 setCost(totalCost);
                 const parcelData = {
                     ...data,
@@ -108,13 +111,13 @@ const SentParcel = () => {
                     payment_status: 'unpaid',
                     delivery_status: 'not_collected',
                     creation_date: new Date().toISOString(),
-                    tracking_id: generateTrackingID()
+                    tracking_id: tracking_id
                 }
                 console.log(parcelData);
 
                 // save data to the server 
                 axiosSecure.post('/parcels', parcelData)
-                    .then(res => {
+                    .then(async (res) => {
                         console.log(res.data);
                         if (res.data.insertedId) {
                             Swal.fire({
@@ -125,6 +128,15 @@ const SentParcel = () => {
                                 showConfirmButton: false
                             });
                         }
+
+                        //tracking 
+                        await logTracking({
+                            tracking_id: parcelData.tracking_id,
+                            status: "Parcel_created",
+                            details: `create by ${user?.displayName}`,
+                            updated_by: user?.email
+                        })
+
                         navigate('/dashboard/myParcels')
                     })
 

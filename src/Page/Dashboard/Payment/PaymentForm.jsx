@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../../Context/AuthContex/AuthContext';
 import Swal from 'sweetalert2';
+import UseTrackingLogger from '../../../hook/UseTrackingLogger';
 
 const PaymentForm = () => {
 
@@ -16,7 +17,9 @@ const PaymentForm = () => {
     const { parcelId } = useParams();
     // console.log(parcelId);
     const axiosSecure = UseAxiosSecure();
+    const { logTracking } = UseTrackingLogger();
     const navigate = useNavigate();
+
 
 
     // get parcel by spesific id 
@@ -108,7 +111,17 @@ const PaymentForm = () => {
                         html: `<strong>TransactionID : ${transactionId}</strong>`,
                         confirmButtonText: 'Go to My parcel'
                     })
-                    navigate('/dashboard/myParcels')
+
+                    // tracking 
+                    await logTracking({
+                        tracking_id: parcelInfo.tracking_id,
+                        status: "Payment_Done",
+                        details: `Paid by ${user?.displayName}`,
+                        updated_by: user?.email
+                    })
+
+
+                    navigate('/dashboard/myParcels');
                 }
             }
         }

@@ -1,15 +1,20 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FaMotorcycle } from "react-icons/fa";
-import { useState } from "react";
+import { use, useState } from "react";
 import Swal from "sweetalert2";
 import UseAxiosSecure from "../../../hook/UseAxiosSecure";
+import UseTrackingLogger from "../../../hook/UseTrackingLogger";
+import { AuthContext } from "../../../Context/AuthContex/AuthContext";
 
 const AssignRider = () => {
     const axiosSecure = UseAxiosSecure();
+    const { user } = use(AuthContext);
     const [selectedParcel, setSelectedParcel] = useState(null);
+    const [selectedRider, setSelectedRider] = useState(null);
     const [riders, setRiders] = useState([]);
     const [loadingRiders, setLoadingRiders] = useState(false);
     const queryClient = useQueryClient();
+    const { logTracking } = UseTrackingLogger();
 
     const { data: parcels = [], isLoading } = useQuery({
         queryKey: ["assignableParcels"],
@@ -26,6 +31,7 @@ const AssignRider = () => {
 
     const { mutateAsync: assignRider } = useMutation({
         mutationFn: async ({ parcelId, rider }) => {
+            setSelectedRider(rider)
             const res = await axiosSecure.patch(`/parcels/${parcelId}/assign`, {
                 riderId: rider._id,
                 riderName: rider.name,
@@ -33,10 +39,21 @@ const AssignRider = () => {
             });
             return res.data;
         },
-        onSuccess: () => {
+        onSuccess: async () => {
             queryClient.invalidateQueries(["assignableParcels"]);
             Swal.fire("Success", "Rider assigned successfully!", "success");
+
+            
+            // track rider assign 
+            await logTracking({
+                tracking_id: selectedParcel.tracking_id,
+                status: "Rider assigned",
+                details: `Assigned driver ${selectedRider.name}`,
+                updated_by: selectedRider.email
+            })
+
             document.getElementById("assignModal").close();
+            console.log(selectedRider.name);
         },
         onError: () => {
             Swal.fire("Error", "Failed to assign rider", "error");
