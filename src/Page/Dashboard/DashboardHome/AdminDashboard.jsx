@@ -56,6 +56,8 @@ const AdminDashboard = () => {
 
             {/* pie chart  */}
             <div className="w-full h-[400px] mt-12">
+                <h1 className="text-3xl font-bold mb-8">Delicery Status Breakdown</h1>
+
                 <ResponsiveContainer>
                     <PieChart>
                         <Pie

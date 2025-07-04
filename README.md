@@ -1,12 +1,110 @@
-# React + Vite
+# 📦 Parcel Delivery Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack parcel delivery management system where users can create parcels, riders can manage deliveries, and admins can track the overall system efficiently.
 
-Currently, two official plugins are available:
+🔗 **Live Website**: [Visit Live Site](https://email-pass-auth-12a30.web.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 🧑‍💼 Admin Panel
+- Dashboard with delivery status overview
+- Manage riders (approve/reject)
+- View all users and parcels
+- Track payments and cashouts
+- View parcel tracking logs
+
+### 👤 User Functionality
+- Register/Login (Email & Password)
+- Create and track parcels
+- View parcel delivery progress
+- Pay for delivery (Stripe integrated)
+- See parcel history and payment info
+
+### 🚴‍♂️ Rider Panel
+- Accept/Reject delivery requests
+- View assigned parcels
+- Mark parcel as picked/delivered
+- View earnings & request cashout
+- Delivery history and performance metrics
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend:
+- **React.js**
+- **React Router DOM**
+- **Tailwind CSS + DaisyUI**
+- **React Icons**
+- **Axios**
+- **TanStack React Query**
+- **SweetAlert2**
+
+### Backend:
+- **Node.js**
+- **Express.js**
+- **MongoDB**
+- **Firebase Authentication**
+- **Stripe Payment Gateway**
+
+---
+
+## 🔐 Authentication & Authorization
+
+- Firebase for authentication (login/register)
+- Role-based access control: **Admin**, **Rider**, and **User**
+- Protected Routes (with custom hooks)
+- JWT token-based secure API requests
+
+---
+
+## 📦 Parcel Flow Chart
+
+1. User creates parcel
+2. Admin assigns a rider
+3. Rider picks up and delivers
+4. Delivery status gets updated
+5. Payment and cashout processed
+
+---
+
+## 💳 Payment & Earning
+
+- Stripe integrated for secure payments
+- Riders earn money per delivery:
+  - **Same Region**: 30% or 40%
+  - **Different Region**: 20%
+- Riders can view earnings and cashout
+
+---
+
+## 📈 Admin Dashboard
+
+- Status summary cards
+- Rider & user management
+- Parcel tracking by ID
+- View total earnings and delivery stats
+- Pie Chart view of delivery statuses
+
+---
+
+
+
+### 🖼️ Screenshots
+
+#### 🔹 Banner
+![Admin Dashboard](./assets/banner.png)
+
+#### 🔹 Admin Dashboard
+![Admin Dashboard](./assets/dashboard.png)
+
+#### 🔹 User Parcel Form
+![Parcel Form](./assets/parcel.png)
+
+#### 🔹 Be a Rider Form
+![Rider Dashboard](./assets/rider.png)
+
+#### 🔹 Rider Earnings
+![Rider Dashboard](./assets/riderEarning.png)

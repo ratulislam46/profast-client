@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
 
 const axiosSecure = axios.create({
-    baseURL: `http://localhost:5000`
+    baseURL: `https://profast-server-eosin.vercel.app`
 });
 
 const UseAxiosSecure = () => {

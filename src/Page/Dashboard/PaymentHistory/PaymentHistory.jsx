@@ -23,7 +23,7 @@ const PaymentHistory = () => {
     // console.log(payments);
 
     const handleDelete = (_id) => {
-        axios.delete(`http://localhost:5000/payments/${_id}`)
+        axios.delete(`https://profast-server-eosin.vercel.app/payments/${_id}`)
             .then(res => {
                 console.log(res.data);
                 refetch()
