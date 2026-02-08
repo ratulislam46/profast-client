@@ -15,7 +15,7 @@ const queryClient = new QueryClient()
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <div className='max-w-7xl mx-auto font-urbanist'>
+    <div className='font-urbanist'>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <Toaster position='right-top'></Toaster>

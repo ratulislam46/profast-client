@@ -10,7 +10,7 @@ import CustomerCards from '../CustomerCards/CustomerCards';
 
 const Home = () => {
     return (
-        <div>
+        <div className='container mx-auto'>
             <div className='mt-10'>
                 <Banner></Banner>
             </div>
