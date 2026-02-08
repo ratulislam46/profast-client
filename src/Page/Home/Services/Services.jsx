@@ -38,22 +38,24 @@ const serviceData = [
 
 const Services = () => {
     return (
-        <div className='bg-[#03373D] border rounded-3xl'>
-            <div className="px-4 py-16 md:px-10">
-                <div className="text-center max-w-2xl mx-auto mb-12">
-                    <h2 className="text-4xl font-bold text-white mb-4">Our Services</h2>
-                    <p className="text-gray-300 text-lg">
-                        Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle. From personal packages to business shipments — we deliver on time, every time.
-                    </p>
-                </div>
+        <section className='bg-[#03373D] border'>
+            <div className='container mx-auto'>
+                <div className="px-4 py-16 md:px-10">
+                    <div className="text-center max-w-2xl mx-auto mb-12">
+                        <h2 className="text-4xl font-bold text-white mb-4">Our Services</h2>
+                        <p className="text-gray-300 text-lg">
+                            Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle. From personal packages to business shipments — we deliver on time, every time.
+                        </p>
+                    </div>
 
-                <div data-aos="fade-right" className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-                    {serviceData.map((service, index) => (
-                        <ServiceCard key={index} service={service}></ServiceCard>
-                    ))}
+                    <div data-aos="fade-right" className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                        {serviceData.map((service, index) => (
+                            <ServiceCard key={index} service={service}></ServiceCard>
+                        ))}
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 

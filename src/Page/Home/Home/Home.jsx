@@ -10,29 +10,29 @@ import CustomerCards from '../CustomerCards/CustomerCards';
 
 const Home = () => {
     return (
-        <div className='container mx-auto'>
-            <div className='mt-10'>
+        <div>
+            <div className='container mx-auto'>
                 <Banner></Banner>
             </div>
-            <section>
+            <section className='container mx-auto'>
                 <Works></Works>
             </section>
             <section>
                 <Services></Services>
             </section>
-            <section>
+            <section className='container mx-auto'>
                 <HelpingTeams></HelpingTeams>
             </section>
-            <section>
+            <section className='container mx-auto'>
                 <Support></Support>
             </section>
-            <section>
+            <section className='container mx-auto'>
                 <Merchant></Merchant>
             </section>
-            <section>
+            <section className='container mx-auto'>
                 <CustomerCards></CustomerCards>
             </section>
-            <section>
+            <section className='container mx-auto'>
                 <Frequently></Frequently>
             </section>
         </div>
