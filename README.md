@@ -93,24 +93,24 @@ A full-stack parcel delivery management system where users can create parcels, r
 
 ### 🖼️ Screenshots
 
-#### 🔹 Banner
+## 🔹 Banner
 ![Admin Dashboard](./assets/banner.png)
 
-#### 🔹 Admin Dashboard
+## 🔹 Admin Dashboard
 ![Admin Dashboard](./assets/dashboard.png)
 
-#### 🔹 User Parcel Form
+## 🔹 User Parcel Form
 ![Parcel Form](./assets/parcel.png)
 
-#### 🔹 Be a Rider Form
+## 🔹 Be a Rider Form
 ![Rider Dashboard](./assets/rider.png)
 
-#### 🔹 Rider Earnings
+## 🔹 Rider Earnings
 ![Rider Dashboard](./assets/riderEarning.png)
 
 
-### Install dependencies
+## Install dependencies
 npm install
 
-### Run the development server
+## Run the development server
 npm run dev
