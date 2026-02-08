@@ -30,7 +30,6 @@ const SentParcel = () => {
     const receiverRegion = watch("receiverRegion");
     const parcelType = watch("parcelType");
 
-
     useEffect(() => {
         fetch('/serviceCenter.json')
             .then(res => res.json())
@@ -40,19 +39,15 @@ const SentParcel = () => {
             })
     }, []);
 
-    // Extract unique regions from the service centers JSON
     const uniqueRegions = useMemo(() => {
         const regions = serviceCenters.map(center => center.region);
         return [...new Set(regions)];
     }, [serviceCenters]);
 
-    // Filter service centers for sender and receiver based on selected region
     const filteredSenderCenters = serviceCenters.filter(c => c.region === senderRegion);
     const filteredReceiverCenters = serviceCenters.filter(c => c.region === receiverRegion);
 
-
     const onSubmit = (data) => {
-        // Cost Breakdown Calculation (same as before)
         let totalCost = 0;
         let baseCost = 0;
         let extraCost = 0;
@@ -76,7 +71,7 @@ const SentParcel = () => {
             }
         }
 
-        // ✅ Updated SweetAlert HTML
+        //  Updated SweetAlert HTML
         const summaryHtml = `
   <div style="text-align: left; font-size: 16px;">
     <p><strong>Parcel Type:</strong> ${data.parcelType}</p>
@@ -146,163 +141,164 @@ const SentParcel = () => {
 
     };
 
-
     return (
-        <div className="mt-8 px-2 md:px-4 lg:px-6">
-            <div className="w-full max-w-6xl mx-auto p-6 bg-base-100 shadow rounded-xl">
-                <Toaster />
-                <h1 className="text-3xl font-bold text-primary mb-20 border-b-gray-600">Add Parcel</h1>
-                <p className="text-lg text-primary font-extrabold mb-4">Enter your parcel details</p>
+        <div className='container mx-auto px-2 lg:px-0'>
+            <div className="mt-8 px-2 md:px-4 lg:px-6">
+                <div className="w-full p-6 bg-base-100 shadow rounded-xl">
+                    <Toaster />
+                    <h1 className="text-3xl font-bold text-primary mb-20 border-b-gray-600">Add Parcel</h1>
+                    <p className="text-lg text-primary font-extrabold mb-4">Enter your parcel details</p>
 
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
 
-                    {/* Parcel Info */}
-                    <div>
-                        <h2 className="text-xl font-semibold mb-2">Parcel Info</h2>
-                        <div className="flex flex-col md:flex-row gap-4 items-start">
-                            <label className="label cursor-pointer">
-                                <input
-                                    type="radio"
-                                    value="document"
-                                    {...register("parcelType", { required: true })}
-                                    className="radio checked:bg-blue-500 mr-2"
-                                />
-                                <span className="label-text">Document</span>
-                            </label>
-                            <label className="label cursor-pointer">
-                                <input
-                                    type="radio"
-                                    value="non-document"
-                                    {...register("parcelType", { required: true })}
-                                    className="radio checked:bg-blue-500 mr-2"
-                                />
-                                <span className="label-text">Non-Document</span>
-                            </label>
+                        {/* Parcel Info */}
+                        <div>
+                            <h2 className="text-xl font-semibold mb-2">Parcel Info</h2>
+                            <div className="flex flex-col md:flex-row gap-4 items-start">
+                                <label className="label cursor-pointer">
+                                    <input
+                                        type="radio"
+                                        value="document"
+                                        {...register("parcelType", { required: true })}
+                                        className="radio checked:bg-blue-500 mr-2"
+                                    />
+                                    <span className="label-text">Document</span>
+                                </label>
+                                <label className="label cursor-pointer">
+                                    <input
+                                        type="radio"
+                                        value="non-document"
+                                        {...register("parcelType", { required: true })}
+                                        className="radio checked:bg-blue-500 mr-2"
+                                    />
+                                    <span className="label-text">Non-Document</span>
+                                </label>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+                                <input {...register("title", { required: true })} placeholder="Parcel Title" className="input input-bordered" />
+
+                                {parcelType === "non-document" && (
+                                    <input type="number" step="0.1" {...register("weight")} placeholder="Weight (kg)" className="input input-bordered" />
+                                )}
+                            </div>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-                            <input {...register("title", { required: true })} placeholder="Parcel Title" className="input input-bordered" />
+                        {/* Sender and Receiver Info Side by Side */}
+                        <div className="lg:flex gap-6">
+                            {/* Sender Info */}
+                            <div className="flex-1 space-y-4">
+                                <h2 className="text-xl font-semibold mb-2">Sender Info</h2>
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                    <fieldset>
+                                        <label className="text-primary font-medium">Sender Name</label>
+                                        <input placeholder="Your Name" {...register("senderName", { required: true })} className="input input-bordered w-full" />
+                                    </fieldset>
 
-                            {parcelType === "non-document" && (
-                                <input type="number" step="0.1" {...register("weight")} placeholder="Weight (kg)" className="input input-bordered" />
-                            )}
-                        </div>
-                    </div>
+                                    <fieldset>
+                                        <label className="text-primary font-medium">Sender Region</label>
+                                        <select {...register("senderRegion", { required: true })} className="select select-bordered w-full">
+                                            <option value="">Select Region</option>
+                                            {uniqueRegions.map(region => (
+                                                <option key={region} value={region}>{region}</option>
+                                            ))}
+                                        </select>
+                                    </fieldset>
 
-                    {/* Sender and Receiver Info Side by Side */}
-                    <div className="lg:flex gap-6">
-                        {/* Sender Info */}
-                        <div className="flex-1 space-y-4">
-                            <h2 className="text-xl font-semibold mb-2">Sender Info</h2>
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                    <fieldset>
+                                        <label className="text-primary font-medium">Sender Address</label>
+                                        <input {...register("senderAddress", { required: true })} placeholder="Sender Address" className="input input-bordered w-full" />
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label className="text-primary font-medium">Sender Contact No</label>
+                                        <input {...register("senderContact", { required: true })} placeholder="Sender Contact No" className="input input-bordered w-full" />
+                                    </fieldset>
+                                </div>
+
                                 <fieldset>
-                                    <label className="text-primary font-medium">Sender Name</label>
-                                    <input placeholder="Your Name" {...register("senderName", { required: true })} className="input input-bordered w-full" />
-                                </fieldset>
-
-                                <fieldset>
-                                    <label className="text-primary font-medium">Sender Region</label>
-                                    <select {...register("senderRegion", { required: true })} className="select select-bordered w-full">
-                                        <option value="">Select Region</option>
-                                        {uniqueRegions.map(region => (
-                                            <option key={region} value={region}>{region}</option>
+                                    <label className="text-primary font-medium">Sender Service Center</label>
+                                    <select {...register("senderServiceCenter", { required: true })} className="select select-bordered w-full">
+                                        <option value="">Select Service Center</option>
+                                        {filteredSenderCenters.map(center => (
+                                            <option key={center.id} value={center.district}>
+                                                {center.name} ({center.district})
+                                            </option>
                                         ))}
                                     </select>
                                 </fieldset>
 
                                 <fieldset>
-                                    <label className="text-primary font-medium">Sender Address</label>
-                                    <input {...register("senderAddress", { required: true })} placeholder="Sender Address" className="input input-bordered w-full" />
-                                </fieldset>
-
-                                <fieldset>
-                                    <label className="text-primary font-medium">Sender Contact No</label>
-                                    <input {...register("senderContact", { required: true })} placeholder="Sender Contact No" className="input input-bordered w-full" />
+                                    <label className="text-primary font-medium">Sender Instruction</label>
+                                    <textarea
+                                        {...register("pickupInstruction", { required: true })}
+                                        placeholder="Pickup Instruction"
+                                        className="textarea textarea-bordered w-full"
+                                        rows={3}
+                                    />
                                 </fieldset>
                             </div>
 
-                            <fieldset>
-                                <label className="text-primary font-medium">Sender Service Center</label>
-                                <select {...register("senderServiceCenter", { required: true })} className="select select-bordered w-full">
-                                    <option value="">Select Service Center</option>
-                                    {filteredSenderCenters.map(center => (
-                                        <option key={center.id} value={center.district}>
-                                            {center.name} ({center.district})
-                                        </option>
-                                    ))}
-                                </select>
-                            </fieldset>
+                            {/* Receiver Info */}
+                            <div className="flex-1 space-y-4 mt-8 lg:mt-0">
+                                <h2 className="text-xl font-semibold mb-2">Receiver Info</h2>
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                    <fieldset>
+                                        <label className="text-primary font-medium">Receiver Name</label>
+                                        <input {...register("receiverName", { required: true })} placeholder="Receiver Name" className="input input-bordered w-full" />
+                                    </fieldset>
 
-                            <fieldset>
-                                <label className="text-primary font-medium">Sender Instruction</label>
-                                <textarea
-                                    {...register("pickupInstruction", { required: true })}
-                                    placeholder="Pickup Instruction"
-                                    className="textarea textarea-bordered w-full"
-                                    rows={3}
-                                />
-                            </fieldset>
-                        </div>
+                                    <fieldset>
+                                        <label className="text-primary font-medium">Receiver Region</label>
+                                        <select {...register("receiverRegion", { required: true })} className="select select-bordered w-full">
+                                            <option value="">Select Region</option>
+                                            {uniqueRegions.map(region => (
+                                                <option key={region} value={region}>{region}</option>
+                                            ))}
+                                        </select>
+                                    </fieldset>
 
-                        {/* Receiver Info */}
-                        <div className="flex-1 space-y-4 mt-8 lg:mt-0">
-                            <h2 className="text-xl font-semibold mb-2">Receiver Info</h2>
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                                <fieldset>
-                                    <label className="text-primary font-medium">Receiver Name</label>
-                                    <input {...register("receiverName", { required: true })} placeholder="Receiver Name" className="input input-bordered w-full" />
-                                </fieldset>
+                                    <fieldset>
+                                        <label className="text-primary font-medium">Receiver Address</label>
+                                        <input {...register("receiverAddress", { required: true })} placeholder="Receiver Address" className="input input-bordered w-full" />
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label className="text-primary font-medium">Receiver Contact No</label>
+                                        <input {...register("receiverContact", { required: true })} placeholder="Receiver Contact" className="input input-bordered w-full" />
+                                    </fieldset>
+                                </div>
 
                                 <fieldset>
-                                    <label className="text-primary font-medium">Receiver Region</label>
-                                    <select {...register("receiverRegion", { required: true })} className="select select-bordered w-full">
-                                        <option value="">Select Region</option>
-                                        {uniqueRegions.map(region => (
-                                            <option key={region} value={region}>{region}</option>
+                                    <label className="text-primary font-medium">Receiver Service Center</label>
+                                    <select {...register("receiverServiceCenter", { required: true })} className="select select-bordered w-full">
+                                        <option value="">Select Service Center</option>
+                                        {filteredReceiverCenters.map(center => (
+                                            <option key={center.id} value={center.district}>
+                                                {center.name} ({center.district})
+                                            </option>
                                         ))}
                                     </select>
                                 </fieldset>
 
                                 <fieldset>
-                                    <label className="text-primary font-medium">Receiver Address</label>
-                                    <input {...register("receiverAddress", { required: true })} placeholder="Receiver Address" className="input input-bordered w-full" />
-                                </fieldset>
-
-                                <fieldset>
-                                    <label className="text-primary font-medium">Receiver Contact No</label>
-                                    <input {...register("receiverContact", { required: true })} placeholder="Receiver Contact" className="input input-bordered w-full" />
+                                    <label className="text-primary font-medium">Delivery Instruction</label>
+                                    <textarea
+                                        {...register("deliveryInstruction", { required: true })}
+                                        placeholder="Delivery Instruction"
+                                        className="textarea textarea-bordered w-full"
+                                        rows={3}
+                                    />
                                 </fieldset>
                             </div>
-
-                            <fieldset>
-                                <label className="text-primary font-medium">Receiver Service Center</label>
-                                <select {...register("receiverServiceCenter", { required: true })} className="select select-bordered w-full">
-                                    <option value="">Select Service Center</option>
-                                    {filteredReceiverCenters.map(center => (
-                                        <option key={center.id} value={center.district}>
-                                            {center.name} ({center.district})
-                                        </option>
-                                    ))}
-                                </select>
-                            </fieldset>
-
-                            <fieldset>
-                                <label className="text-primary font-medium">Delivery Instruction</label>
-                                <textarea
-                                    {...register("deliveryInstruction", { required: true })}
-                                    placeholder="Delivery Instruction"
-                                    className="textarea textarea-bordered w-full"
-                                    rows={3}
-                                />
-                            </fieldset>
                         </div>
-                    </div>
 
-                    {/* Submit Button */}
-                    <div className="text-center">
-                        <button type="submit" className="btn btn-secondary text-primary">Submit</button>
-                    </div>
-                </form>
+                        {/* Submit Button */}
+                        <div className="text-center">
+                            <button type="submit" className="btn btn-secondary text-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     );

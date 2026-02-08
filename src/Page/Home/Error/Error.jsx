@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 const Error = () => {
     return (
-        <div className='mt-4 mb-2 shadow-xl rounded-3xl'>
+        <div className='mt-4 mb-2'>
             <div className='flex justify-center items-center'>
                 <div className='pb-6'>
                     <img src="https://i.postimg.cc/C5sPdYcy/error.jpg" alt="" className='' />
