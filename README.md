@@ -109,8 +109,8 @@ A full-stack parcel delivery management system where users can create parcels, r
 ![Rider Dashboard](./assets/riderEarning.png)
 
 
-# Install dependencies
+### Install dependencies
 npm install
 
-# Run the development server
+### Run the development server
 npm run dev
