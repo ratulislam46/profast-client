@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 const customers = [
   {
     id: 1,
-    name: "Alice Johnson",
+    name: "Jannatul Ferdausi",
     post: "Marketing Manager",
     comment: "This product completely changed the way we work. Highly recommended!",
     image: "https://randomuser.me/api/portraits/women/44.jpg"
@@ -18,7 +18,7 @@ const customers = [
   },
   {
     id: 3,
-    name: "Sophie Lee",
+    name: "Hamim Ahmed",
     post: "Project Coordinator",
     comment: "We saved a lot of time after using this service. Great value!",
     image: "https://randomuser.me/api/portraits/women/68.jpg"
@@ -32,7 +32,7 @@ const customers = [
   },
   {
     id: 5,
-    name: "Maria Gomez",
+    name: "Maria Rahman",
     post: "Operations Head",
     comment: "Smooth experience from start to finish. Would definitely use again.",
     image: "https://randomuser.me/api/portraits/women/24.jpg"
@@ -101,36 +101,43 @@ const CustomerCards = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-6">
 
-      {/* image  */}
-      <div>
+    <div className='bg-primary/5'>
+      <div className='container mx-auto'>
+        <div className="px-4 py-16 md:px-10">
+          <div className="flex flex-col items-center justify-center p-6">
 
-      </div>
-      {/* title & desciption  */}
-      <h2 className="text-3xl font-bold text-center mb-6">What our customers are sayings</h2>
-      <p className="text-center mb-10 text-gray-500">
-        Enhance posture, mobility, and well-being effortlessly with Posture Pro. Achieve proper alignment, reduce pain, and strengthen your body with ease!
-      </p>
+            {/* image  */}
+            <div>
 
-      {/* Card Carousel */}
-      <div className="flex items-center justify-center gap-4 flex-wrap mb-8">
-        {/* Hide on mobile, show on md+ */}
-        {renderCard(customers[prevIndex], 'side', true)}
-        {renderCard(customers[currentIndex], 'center')}
-        {renderCard(customers[nextIndex], 'side', true)}
-      </div>
+            </div>
+            {/* title & desciption  */}
+            <h2 className="text-3xl font-bold text-center mb-6">What our customers are sayings</h2>
+            <p className="text-center mb-10 text-gray-500">
+              Enhance posture, mobility, and well-being effortlessly with Posture Pro. Achieve proper alignment, reduce pain, and strengthen your body with ease!
+            </p>
 
-      {/* Navigation Buttons */}
-      <div className="flex gap-4">
-        <button className="btn btn-secondary btn-outline text-primary btn-sm" onClick={handlePrevious}>
-          <FaArrowLeft className="mr-1" />
-          Previous
-        </button>
-        <button className="btn text-primary btn-secondary btn-sm" onClick={handleNext}>
-          Next
-          <FaArrowRight className="ml-1" />
-        </button>
+            {/* Card Carousel */}
+            <div className="flex items-center justify-center gap-4 flex-wrap mb-8">
+              {/* Hide on mobile, show on md+ */}
+              {renderCard(customers[prevIndex], 'side', true)}
+              {renderCard(customers[currentIndex], 'center')}
+              {renderCard(customers[nextIndex], 'side', true)}
+            </div>
+
+            {/* Navigation Buttons */}
+            <div className="flex gap-4">
+              <button className="btn btn-secondary btn-outline text-primary btn-sm" onClick={handlePrevious}>
+                <FaArrowLeft className="mr-1" />
+                Previous
+              </button>
+              <button className="btn text-primary btn-secondary btn-sm" onClick={handleNext}>
+                Next
+                <FaArrowRight className="ml-1" />
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

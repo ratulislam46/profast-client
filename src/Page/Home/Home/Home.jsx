@@ -29,7 +29,7 @@ const Home = () => {
             <section className='container mx-auto'>
                 <Merchant></Merchant>
             </section>
-            <section className='container mx-auto'>
+            <section>
                 <CustomerCards></CustomerCards>
             </section>
             <section className='container mx-auto'>
